@@ -14,7 +14,8 @@ export default {
       header: "#4D4D4D",
       btn: "#FF8C38",
       footer: "#252525",
-      footer_text: "#AAAAAA"
+      footer_text: "#AAAAAA",
+      Headers: "#161616"
     },
     fontSize: {
       sm: "14px",

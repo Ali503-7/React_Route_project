@@ -5,7 +5,7 @@ import Nav from "./components/NavBar/Nav";
 import Footer from "./components/Footer/Footer";
 export default function App() {
   return (
-    <div className="font-sans">
+    <div className="font-sans flex flex-col min-h-screen">
     <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
