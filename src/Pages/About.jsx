@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import AboutHero from "../assets/imgs/About/image 55.png";
 
 const About = () => {
   return (
     <div className="container gap-20 flex flex-col my-auto">
       <div className="flex xl:flex-row flex-col items-center gap-3">
-        <img src={AboutHero} alt="" className="xl:w-1/2" />
+        <img src={AboutHero} alt="" className="xl:w-1/2 max-w-[120%]" />
         <div className=" self-start flex flex-col gap-5">
           <h1 className=" font-sans font-bold text-Headers text-xl">
             Don’t squeeze in a sedan when you could relax in a van.
@@ -24,9 +25,12 @@ const About = () => {
         <h3 className="text-Headers text-md font-bold">
           Your destination is waiting. Your van is ready.
         </h3>
-        <button className="bg-Headers text-[#ffffff] rounded-md xl:py-3 xl:px-2 w-1/1 xl:w-1/4 py-2 font-bold text-md">
+        <Link
+          to="/vans"
+          className="bg-Headers text-[#ffffff] rounded-md xl:py-3 xl:px-2 w-1/1 xl:w-1/4 py-2 font-bold text-md flex justify-center"
+        >
           Explore our vans
-        </button>
+        </Link>
       </div>
     </div>
   );

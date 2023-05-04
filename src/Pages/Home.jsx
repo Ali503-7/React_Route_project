@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -10,7 +11,12 @@ const Home = () => {
           Add adventure to your life by joining the #vanlife movement. Rent the
           perfect van to make your perfect road trip.
         </p>
-        <button className="bg-btn text-[#ffffff] w-full py-2 rounded-md md:w-1/4">Find your van</button>
+        <Link
+          to="/vans"
+          className="bg-btn text-[#ffffff] w-full py-2 rounded-md md:w-1/4 flex items-center justify-center"
+        >
+          Find your van
+        </Link>
       </div>
     </div>
   );
