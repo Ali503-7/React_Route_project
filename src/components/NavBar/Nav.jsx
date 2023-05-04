@@ -11,10 +11,10 @@ const nav = () => {
           </Link>
         </div>
         <ul className="flex flex-row gap-3">
-          <li className="text-md font-[600] text-header">
+          <li className="text-md font-[600] text-header hover:underline">
             <Link to="/about">About</Link>
           </li>
-          <li className="text-md font-[600] text-header">
+          <li className="text-md font-[600] text-header hover:underline">
             <Link to="/vans">Vans</Link>
           </li>
         </ul>

@@ -9,7 +9,7 @@ const Vans = () => {
       try {
         const response = await fetch("/api/vans");
         const data = await response.json();
-        setVans(data);
+        setVans(data.vans);
       } catch (error) {
         console.error(error);
       }
@@ -19,7 +19,7 @@ const Vans = () => {
 
   const cars = () => {
     if (vans) {
-      return vans.vans.map((car) => {
+      return vans.map((car) => {
         const carTypeStyle = {
           background: ""
         };
@@ -35,22 +35,22 @@ const Vans = () => {
               <div className=" rounded-xl overflow-hidden">
                 <img src={car.imageUrl} alt={car.name} />
               </div>
-              <div className="flex justify-between h-[35px]">
+              <div className="flex justify-between">
                 <h3 className="text-Headers font-semibold text-[20px]">
                   {car.name}
                 </h3>
-                <div className="flex flex-col">
+                <div className="flex flex-col relative h-fit">
                   <span className="text-Headers font-semibold text-[20px]">
                     ${car.price}
                   </span>
-                  <span className="text-sm text-Headers relative bottom-2">
+                  <span className="text-sm text-Headers absolute -bottom-3">
                     /day
                   </span>
                 </div>
               </div>
               <div
                 style={{ background: carTypeStyle.background }}
-                className="w-fit text-BG px-3 py-1 rounded-md"
+                className="w-fit text-BG px-3 py-1 rounded-md capitalize"
               >
                 {car.type}
               </div>
