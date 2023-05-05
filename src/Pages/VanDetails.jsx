@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../assets/Server";
 import { useEffect, useState } from "react";
 
 const VanDetails = () => {
   const [van, setVan] = useState({});
 
-  const theID = window.location.href.slice(-1);
+  const theID = useParams();
 
   useEffect(() => {
     const fetchVans = async () => {
       try {
-        const response = await fetch("/api/vans");
+        const response = await fetch(`/api/vans/${theID.id}`);
         const data = await response.json();
-        setVan(data.vans.find((v) => v.id === theID));
+        setVan(data.vans);
       } catch (error) {
         console.error(error);
       }
