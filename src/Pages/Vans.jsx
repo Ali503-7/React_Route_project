@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../assets/Server";
+import { Link } from "react-router-dom";
 
 const Vans = () => {
   const [vans, setVans] = useState();
@@ -20,18 +21,18 @@ const Vans = () => {
   const cars = () => {
     if (vans) {
       return vans.map((car) => {
+        
         const carTypeStyle = {
-          background: ""
+          background: "",
         };
-        if (car.type == "simple") {
-          carTypeStyle.background = "#E17654";
-        } else if (car.type == "rugged") {
-          carTypeStyle.background = "#115E59";
-        } else (
-          carTypeStyle.background = "black"
-        )
-          return (
-            <div key={car.id} className="">
+
+        if (car.type == "simple") carTypeStyle.background = "#E17654";
+        if (car.type == "rugged") carTypeStyle.background = "#115E59";
+        if (car.type == "luxury") carTypeStyle.background = "black";
+
+        return (
+          <Link to={`/vans/${car.id}`} key={car.id}>
+            <div>
               <div className=" rounded-xl overflow-hidden">
                 <img src={car.imageUrl} alt={car.name} />
               </div>
@@ -55,7 +56,8 @@ const Vans = () => {
                 {car.type}
               </div>
             </div>
-          );
+          </Link>
+        );
       });
     } else {
       return <div>Loading</div>;
@@ -63,8 +65,14 @@ const Vans = () => {
   };
 
   return (
-    <div className="container grid gap-4 grid-cols-2 md:grid-cols-3 my-2">
-      {cars()}
+    <div className="container my-auto">
+      <h1
+        className="font-bold text-Headers text-xl
+      mt-5"
+      >
+        Explore our van options
+      </h1>
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-3 my-5">{cars()}</div>
     </div>
   );
 };

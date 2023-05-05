@@ -3,6 +3,7 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Nav from "./components/NavBar/Nav";
 import Footer from "./components/Footer/Footer";
+import VanDetails from "./Pages/VanDetails";
 import Vans from "./Pages/Vans";
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/vans" element={<Vans />} />
+        <Route path="/vans/:id" element={<VanDetails />} />
       </Routes>
       <footer>
         <Footer />
