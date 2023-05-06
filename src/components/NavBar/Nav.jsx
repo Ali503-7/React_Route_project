@@ -4,7 +4,7 @@ import logo from "../../assets/imgs/Logo/logog.png";
 const nav = () => {
   return (
     <header>
-      <nav className="py-10 bg-[#FFF7ED]">
+      <nav className="py-10 ">
         <div className="container flex flex-row justify-between items-center font-sans font-[600]">
           <div className="logo">
             <NavLink to="/">
