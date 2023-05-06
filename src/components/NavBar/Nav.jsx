@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/imgs/Logo/logog.png";
 
 const nav = () => {
@@ -7,19 +7,40 @@ const nav = () => {
       <nav className="py-10 bg-[#FFF7ED]">
         <div className="container flex flex-row justify-between items-center font-sans font-[600]">
           <div className="logo">
-            <Link to="/">
+            <NavLink to="/">
               <img src={logo} alt="" className=" w-40" />
-            </Link>
+            </NavLink>
           </div>
           <ul className="flex flex-row gap-3">
             <li className="text-md font-[600] text-header hover:underline">
-              <Link to="/Host">Host</Link>
+              <NavLink
+                to="/host"
+                className={({ isActive }) =>
+                  isActive ? "underline font-bold" : null
+                }
+              >
+                Host
+              </NavLink>
             </li>
             <li className="text-md font-[600] text-header hover:underline">
-              <Link to="/about">About</Link>
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive ? "underline font-bold" : null
+                }
+              >
+                About
+              </NavLink>
             </li>
             <li className="text-md font-[600] text-header hover:underline">
-              <Link to="/vans">Vans</Link>
+              <NavLink
+                to="/vans"
+                className={({ isActive }) =>
+                  isActive ? "underline font-bold" : null
+                }
+              >
+                Vans
+              </NavLink>
             </li>
           </ul>
         </div>

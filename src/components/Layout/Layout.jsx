@@ -5,7 +5,9 @@ const Layout = () => {
   return (
     <>
       <Nav />
-      <Outlet />
+      <main className="my-auto">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );
