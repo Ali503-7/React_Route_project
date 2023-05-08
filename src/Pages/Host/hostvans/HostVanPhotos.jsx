@@ -1,33 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import "../../../assets/Server";
-
+import { useOutletContext } from "react-router-dom";
 
 const HostVanPhotos = () => {
-        const ID = useParams();
+  const van = useOutletContext();
 
-        const [van, setVan] = useState();
-
-        useEffect(() => {
-          const fetchVans = async () => {
-            try {
-              const response = await fetch("/api/vans");
-              const data = await response.json();
-
-              setVan(data.vans.find(({ id }) => id == ID.id));
-            } catch (error) {
-              console.error(error);
-            }
-          };
-          fetchVans();
-        }, []);
-  return van ? (
+  return (
     <div className="w-1/5 overflow-hidden rounded-md">
-      <img src={van.imageUrl} alt="" />
+      <img src={van.imageUrl} alt={van.name} />
     </div>
-  ) : (
-    <div>Loading...</div>
   );
-}
+};
 
-export default HostVanPhotos
+export default HostVanPhotos;

@@ -32,7 +32,7 @@ const HostVans = () => {
   return (
     <div>
       <div className="my-5">
-        <Link to="/host/vans">
+        <Link to=".." relative="path">
           {`<-`}
           <span>Back to all vans</span>
         </Link>
@@ -61,7 +61,7 @@ const HostVans = () => {
           <ul className="flex felx-row gap-5 my-5">
             <li>
               <NavLink
-                to=""
+                to="."
                 end
                 className={({ isActive }) =>
                   isActive ? "underline font-bold" : null
@@ -91,7 +91,7 @@ const HostVans = () => {
               </NavLink>
             </li>
           </ul>
-          <Outlet />
+          <Outlet context={van} />
         </div>
       ) : (
         <div>Loading</div>

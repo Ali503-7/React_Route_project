@@ -16,7 +16,7 @@ const HostNav = () => {
         </li>
         <li className="hover:underline text-[#161616]">
           <NavLink
-            to="/host/income"
+            to="income"
             className={({ isActive }) =>
               isActive ? "underline font-bold" : null
             }
@@ -26,7 +26,7 @@ const HostNav = () => {
         </li>
         <li className="hover:underline text-[#161616]">
           <NavLink
-            to="/host/vans"
+            to="vans"
             className={({ isActive }) =>
               isActive ? "underline font-bold" : null
             }
@@ -36,7 +36,7 @@ const HostNav = () => {
         </li>
         <li className="hover:underline text-[#161616]">
           <NavLink
-            to="/host/reviews"
+            to="reviews"
             className={({ isActive }) =>
               isActive ? "underline font-bold" : null
             }

@@ -13,7 +13,7 @@ const nav = () => {
           </div>
           <ul className="flex flex-row gap-3">
             <li className="text-md font-[600] text-header hover:underline">
-              <NavLink
+              <NavLink 
                 to="/host"
                 className={({ isActive }) =>
                   isActive ? "underline font-bold" : null
@@ -34,7 +34,7 @@ const nav = () => {
             </li>
             <li className="text-md font-[600] text-header hover:underline">
               <NavLink
-                to="/vans"
+                to="/vans?typeFilter=nani&cool=realy"
                 className={({ isActive }) =>
                   isActive ? "underline font-bold" : null
                 }

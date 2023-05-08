@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import "../assets/Server";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const Vans = () => {
   const [vans, setVans] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const typeFilter = searchParams.get("type")
 
   useEffect(() => {
     const fetchVans = async () => {
@@ -18,10 +21,13 @@ const Vans = () => {
     fetchVans();
   }, []);
 
+  const filledData = typeFilter
+    ? vans.filter((ob) => ob.type.toLowerCase() == typeFilter.toLowerCase())
+    : vans;
+
   const cars = () => {
-    if (vans) {
-      return vans.map((car) => {
-        
+    if (filledData) {
+      return filledData.map((car) => {
         const carTypeStyle = {
           background: "",
         };
@@ -72,6 +78,32 @@ const Vans = () => {
       >
         Explore our van options
       </h1>
+      <div className="flex flex-row gap-5 items-center flex-wrap">
+        <button
+          className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
+          onClick={() => setSearchParams({ type: "simple" })}
+        >
+          Simple
+        </button>
+        <button
+          className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
+          onClick={() => setSearchParams({ type: "Luxury" })}
+        >
+          Luxury
+        </button>
+        <button
+          className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
+          onClick={() => setSearchParams({ type: "Rugged" })}
+        >
+          Rugged
+        </button>
+        <button
+          className="hover:underline"
+          onClick={() => setSearchParams({})}
+        >
+          Clear filters
+        </button>
+      </div>
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3 my-5">{cars()}</div>
     </div>
   );
