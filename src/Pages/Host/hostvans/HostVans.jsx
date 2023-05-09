@@ -22,7 +22,7 @@ const HostVans = () => {
   const vanList = () => {
     if (vans && vans.length > 0) {
       return vans.slice(0, 3).map((van) => (
-        <Link to={`${van.id}`} key={van.id}>
+        <Link to={van.id} key={van.id}>
           <div className="bg-[#ffffff] p-5 w-full rounded-xl">
             <div className="flex flex-row gap-5 items-center">
               <div className="w-[67px] h-fit rounded-xl overflow-hidden">

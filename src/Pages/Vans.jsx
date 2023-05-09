@@ -25,8 +25,8 @@ const Vans = () => {
     fetchVans();
   }, []);
 
-  const filledData = typeFilter
-    ? vans.filter((ob) => ob.type.toLowerCase() == typeFilter.toLowerCase())
+  const filledData = typeFilter && vans
+    ? vans.filter((ob) => ob.type.toLowerCase() === typeFilter.toLowerCase())
     : vans;
 
   const cars = () => {
@@ -41,7 +41,11 @@ const Vans = () => {
         if (car.type == "luxury") carTypeStyle.background = "black";
 
         return (
-          <Link to={`/vans/${car.id}`} key={car.id}>
+          <Link
+            to={car.id}
+            key={car.id}
+            state={{ search: searchParams.toString(), type: typeFilter }}
+          >
             <div>
               <div className=" rounded-xl overflow-hidden">
                 <img src={car.imageUrl} alt={car.name} />
@@ -92,16 +96,16 @@ const Vans = () => {
           Simple
         </button>
         <button
-          className={`py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-md hover:bg-[#115E59] hover:text-[#ffffff] ${
-            typeFilter === "Luxury" ? "bg-[#115E59] text-[#ffffff]" : ""
+          className={`py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-md hover:bg-[#000000] hover:text-[#ffffff] ${
+            typeFilter === "Luxury" ? "bg-[#000000] text-[#ffffff]" : ""
           }`}
           onClick={(text) => HandelFilter(text)}
         >
           Luxury
         </button>
         <button
-          className={`py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-md hover:bg-[#000000] hover:text-[#ffffff] ${
-            typeFilter === "Rugged" ? "bg-[#000000] text-[#ffffff]" : ""
+          className={`py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-md hover:bg-[#115E59] hover:text-[#ffffff] ${
+            typeFilter === "Rugged" ? "bg-[#115E59] text-[#ffffff]" : ""
           }`}
           onClick={(text) => HandelFilter(text)}
         >

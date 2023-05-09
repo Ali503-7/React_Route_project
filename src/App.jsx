@@ -23,8 +23,8 @@ export default function App() {
 
           <Route path="vans">
             <Route index element={<Vans />} />
+          <Route path=":id" element={<VanDetails />} />
           </Route>
-          <Route path="vans/:id" element={<VanDetails />} />
 
           <Route path="host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />
