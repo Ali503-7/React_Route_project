@@ -6,7 +6,11 @@ const Vans = () => {
   const [vans, setVans] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const typeFilter = searchParams.get("type")
+  const typeFilter = searchParams.get("type");
+
+  const HandelFilter = (text) => {
+    setSearchParams({ type: text.target.innerText });
+  };
 
   useEffect(() => {
     const fetchVans = async () => {
@@ -81,28 +85,30 @@ const Vans = () => {
       <div className="flex flex-row gap-5 items-center flex-wrap">
         <button
           className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
-          onClick={() => setSearchParams({ type: "simple" })}
+          onClick={(text) => HandelFilter(text)}
         >
           Simple
         </button>
         <button
           className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
-          onClick={() => setSearchParams({ type: "Luxury" })}
+          onClick={(text) => HandelFilter(text)}
         >
           Luxury
         </button>
         <button
           className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
-          onClick={() => setSearchParams({ type: "Rugged" })}
+          onClick={(text) => HandelFilter(text)}
         >
           Rugged
         </button>
-        <button
-          className="hover:underline"
-          onClick={() => setSearchParams({})}
-        >
-          Clear filters
-        </button>
+        {typeFilter ? (
+          <button
+            className="hover:underline"
+            onClick={() => setSearchParams({})}
+          >
+            Clear filters
+          </button>
+        ) : null}
       </div>
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3 my-5">{cars()}</div>
     </div>
