@@ -8,8 +8,28 @@ const Vans = () => {
 
   const typeFilter = searchParams.get("type");
 
+  const [filterButtonColor, setFilterButtonColor] = useState({
+    Simple: false,
+    Luxury: false,
+    Rugged: false,
+  });
+
   const HandelFilter = (text) => {
-    setSearchParams({ type: text.target.innerText });
+    if (text.target.innerText == "Clear filters") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ type: text.target.innerText });
+    }
+
+    const updatedFilterButtonColor = {
+      Simple: false,
+      Luxury: false,
+      Rugged: false,
+    };
+
+    updatedFilterButtonColor[text.target.innerText] = true;
+
+    setFilterButtonColor(updatedFilterButtonColor);
   };
 
   useEffect(() => {
@@ -86,25 +106,40 @@ const Vans = () => {
         <button
           className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
           onClick={(text) => HandelFilter(text)}
+          style={
+            filterButtonColor.Simple
+              ? { background: "#E17654", color: "white" }
+              : null
+          }
         >
           Simple
         </button>
         <button
           className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
           onClick={(text) => HandelFilter(text)}
+          style={
+            filterButtonColor.Luxury
+              ? { background: "#115E59", color: "white" }
+              : null
+          }
         >
           Luxury
         </button>
         <button
           className="py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-sm"
           onClick={(text) => HandelFilter(text)}
+          style={
+            filterButtonColor.Rugged
+              ? { background: "black", color: "white" }
+              : null
+          }
         >
           Rugged
         </button>
         {typeFilter ? (
           <button
             className="hover:underline"
-            onClick={() => setSearchParams({})}
+            onClick={(text) => HandelFilter(text)}
           >
             Clear filters
           </button>
