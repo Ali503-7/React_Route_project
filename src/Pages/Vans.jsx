@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import "../assets/Server";
+import { getVans } from "../assets/Api";
 import { Link, useSearchParams } from "react-router-dom";
 
 const Vans = () => {
   const [vans, setVans] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const typeFilter = searchParams.get("type");
 
@@ -13,21 +15,24 @@ const Vans = () => {
   };
 
   useEffect(() => {
-    const fetchVans = async () => {
+    async function fetchVans() {
+      setLoading(true);
       try {
-        const response = await fetch("/api/vans");
-        const data = await response.json();
-        setVans(data.vans);
-      } catch (error) {
-        console.error(error);
+        const data = await getVans();
+        setVans(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
       }
-    };
+    }
     fetchVans();
   }, []);
 
-  const filledData = typeFilter && vans
-    ? vans.filter((ob) => ob.type.toLowerCase() === typeFilter.toLowerCase())
-    : vans;
+  const filledData =
+    typeFilter && vans
+      ? vans.filter((ob) => ob.type.toLowerCase() === typeFilter.toLowerCase())
+      : vans;
 
   const cars = () => {
     if (filledData) {
@@ -73,9 +78,8 @@ const Vans = () => {
           </Link>
         );
       });
-    } else {
-      return <div>Loading</div>;
     }
+
   };
 
   return (
@@ -89,7 +93,7 @@ const Vans = () => {
       <div className="flex flex-row gap-5 items-center flex-wrap">
         <button
           className={`py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-md hover:bg-[#E17654] hover:text-[#ffffff] ${
-            typeFilter === "Simple" ? "bg-[#E17654] text-[#ffffff]" : ""
+            typeFilter === "Simple" ? "!bg-[#E17654] text-[#ffffff]" : ""
           }`}
           onClick={(text) => HandelFilter(text)}
         >
@@ -97,7 +101,7 @@ const Vans = () => {
         </button>
         <button
           className={`py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-md hover:bg-[#000000] hover:text-[#ffffff] ${
-            typeFilter === "Luxury" ? "bg-[#000000] text-[#ffffff]" : ""
+            typeFilter === "Luxury" ? "!bg-[#000000] text-[#ffffff]" : ""
           }`}
           onClick={(text) => HandelFilter(text)}
         >
@@ -105,7 +109,7 @@ const Vans = () => {
         </button>
         <button
           className={`py-1 px-3 bg-[#FFEAD0] text-[#4D4D4D] rounded-md hover:bg-[#115E59] hover:text-[#ffffff] ${
-            typeFilter === "Rugged" ? "bg-[#115E59] text-[#ffffff]" : ""
+            typeFilter === "Rugged" ? "!bg-[#115E59] text-[#ffffff]" : ""
           }`}
           onClick={(text) => HandelFilter(text)}
         >
@@ -121,6 +125,18 @@ const Vans = () => {
         ) : null}
       </div>
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3 my-5">{cars()}</div>
+      {loading ? (
+        <div>
+          <svg
+            className="animate-spin h-5 w-5 mr-3 inline rounded-full border-4 border-slate-500 border-t-slate-900 border-t-4"
+            viewBox="0 0 24 24"
+          ></svg>
+          Loading
+        </div>
+      ) : null}
+      {error && !loading ?
+      <h1 className="w-fit">Server error: {error.message}</h1>: null
+    }
     </div>
   );
 };

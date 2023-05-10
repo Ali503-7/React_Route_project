@@ -13,6 +13,7 @@ import HostVanDitails from "./Pages/Host/hostvans/HostVanDitails";
 import HostVansLayout from "./components/Layout/HostVansLayout";
 import HostVanPricing from "./Pages/Host/hostvans/HostVanPricing";
 import HostVanPhotos from "./Pages/Host/hostvans/HostVanPhotos";
+import NotFound from "./Pages/404";
 export default function App() {
   return (
     <div className="font-sans flex flex-col min-h-screen overflow-x-hidden bg-[#FFF7ED]">
@@ -37,6 +38,7 @@ export default function App() {
               <Route path="photos" element={<HostVanPhotos />} />
             </Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </div>

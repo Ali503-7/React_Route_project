@@ -33,13 +33,13 @@ const VanDetails = () => {
   if (van.type == "luxury") carTypeStyle.background = "black";
 
   const search = state.state?.search || "";
-  const searchName = state.state?.type || "all vans"
+  const searchName = state.state?.type || ""
 
   return van ? (
     <div className="container my-auto">
       <div className="mb-10 mt-5 hover:underline">
         <Link to={`..?${search}`}>
-          {`<-`} Back to {searchName}
+          {`<-`} Back to { state.state?.type ? `${searchName} vans` : 'all vans'}
         </Link>
       </div>
       <div className="flex flex-col md:flex-row gap-2">
