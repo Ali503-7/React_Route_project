@@ -1,4 +1,4 @@
-import { createServer, Model, Response } from "miragejs";
+import { createServer, Model } from "miragejs";
 
 createServer({
   models: {
@@ -70,7 +70,6 @@ createServer({
 
   routes() {
     this.namespace = "api";
-    this.timing = 2000;
 
     this.get("/vans", (schema, request) => {
       return schema.vans.all();
