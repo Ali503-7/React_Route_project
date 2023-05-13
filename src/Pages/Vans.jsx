@@ -1,33 +1,19 @@
-import { useEffect, useState } from "react";
 import { getVans } from "../assets/Api";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData } from "react-router-dom";
+
+export function loader() {
+  return getVans()
+}
 
 const Vans = () => {
-  const [vans, setVans] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const vans = useLoaderData()
 
   const typeFilter = searchParams.get("type");
 
   const HandelFilter = (text) => {
     setSearchParams({ type: text.target.innerText });
   };
-
-  useEffect(() => {
-    async function fetchVans() {
-      setLoading(true);
-      try {
-        const data = await getVans();
-        setVans(data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchVans();
-  }, []);
 
   const filledData =
     typeFilter && vans
@@ -79,7 +65,6 @@ const Vans = () => {
         );
       });
     }
-
   };
 
   return (
@@ -125,18 +110,6 @@ const Vans = () => {
         ) : null}
       </div>
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3 my-5">{cars()}</div>
-      {loading ? (
-        <div>
-          <svg
-            className="animate-spin h-5 w-5 mr-3 inline rounded-full border-4 border-slate-500 border-t-slate-900 border-t-4"
-            viewBox="0 0 24 24"
-          ></svg>
-          Loading
-        </div>
-      ) : null}
-      {error && !loading ?
-      <h1 className="w-fit">Server error: {error.message}</h1>: null
-    }
     </div>
   );
 };
