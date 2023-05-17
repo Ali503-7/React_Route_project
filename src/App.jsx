@@ -20,12 +20,15 @@ import HostVanPricing from "./Pages/Host/hostvans/HostVanPricing";
 import HostVanPhotos from "./Pages/Host/hostvans/HostVanPhotos";
 import Error from "./Pages/Error";
 import NotFound from "./Pages/404";
+import Sign_In from "./Pages/Sign_In";
+import AuthLayout from "./components/Layout/AuthLayout";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path="SignIn" element={<Sign_In />} />
 
       <Route path="vans">
         <Route
@@ -37,15 +40,17 @@ const route = createBrowserRouter(
         <Route path=":id" element={<VanDetails />} />
       </Route>
 
-      <Route path="host" element={<HostLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="income" element={<Income />} />
-        <Route path="reviews" element={<Reviews />} />
-        <Route path="vans" element={<HostVans />} />
-        <Route path="vans/:id" element={<HostVansLayout />}>
-          <Route index element={<HostVanDitails />} />
-          <Route path="pricing" element={<HostVanPricing />} />
-          <Route path="photos" element={<HostVanPhotos />} />
+      <Route element={<AuthLayout />}>
+        <Route path="host" element={<HostLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="income" element={<Income />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="vans" element={<HostVans />} />
+          <Route path="vans/:id" element={<HostVansLayout />}>
+            <Route index element={<HostVanDitails />} />
+            <Route path="pricing" element={<HostVanPricing />} />
+            <Route path="photos" element={<HostVanPhotos />} />
+          </Route>
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
