@@ -1,27 +1,16 @@
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useLocation, useLoaderData } from "react-router-dom";
 import "../assets/Server";
-import { useEffect, useState } from "react";
+import { getVans } from "../assets/Api";
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function loader({ params }) {
+  return getVans(params.id);
+}
 
 const VanDetails = () => {
-  const [van, setVan] = useState({});
+  const van = useLoaderData();
 
   const state = useLocation();
-  const theID = useParams();
-
-  console.log(state.state);
-
-  useEffect(() => {
-    const fetchVans = async () => {
-      try {
-        const response = await fetch(`/api/vans/${theID.id}`);
-        const data = await response.json();
-        setVan(data.vans);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchVans();
-  }, [theID]);
 
   const carTypeStyle = {
     background: "",
@@ -35,7 +24,7 @@ const VanDetails = () => {
   const search = state.state?.search || "";
   const searchName = state.state?.type || "";
 
-  return van ? (
+  return (
     <div className="container my-auto">
       <div className="mb-10 mt-5 hover:underline">
         <Link to={`..?${search}`}>
@@ -67,8 +56,6 @@ const VanDetails = () => {
         </div>
       </div>
     </div>
-  ) : (
-    <div>Loading</div>
   );
 };
 

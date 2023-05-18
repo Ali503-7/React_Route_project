@@ -3,25 +3,29 @@ import {
   createRoutesFromElements,
   createBrowserRouter,
   Route,
+  redirect,
 } from "react-router-dom";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
-import VanDetails from "./Pages/VanDetails";
+import VanDetails, { loader as VanDetailsLoader } from "./Pages/VanDetails";
 import Vans, { loader as vansLoader } from "./Pages/Vans";
 import Layout from "./components/Layout/Layout";
 import Income from "./Pages/Host/Income";
 import Reviews from "./Pages/Host/Reviews";
 import Dashboard from "./Pages/Host/Dashboard";
-import HostVans from "./Pages/Host/hostvans/HostVans";
+import HostVans, {
+  loader as HostVansLoader,
+} from "./Pages/Host/hostvans/HostVans";
 import HostLayout from "./components/Layout/HostLayout";
-import HostVanDitails from "./Pages/Host/hostvans/HostVanDitails";
+import HostVanDitails, {
+  loader as vanDitailsLoader,
+} from "./Pages/Host/hostvans/HostVanDitails";
 import HostVansLayout from "./components/Layout/HostVansLayout";
-import HostVanPricing from "./Pages/Host/hostvans/HostVanPricing";
-import HostVanPhotos from "./Pages/Host/hostvans/HostVanPhotos";
+import HostVanPricing , {loader as vanPricingLoader} from "./Pages/Host/hostvans/HostVanPricing";
+import HostVanPhotos , {loader as vanPhotosLoader} from "./Pages/Host/hostvans/HostVanPhotos";
 import Error from "./Pages/Error";
 import NotFound from "./Pages/404";
 import Sign_In from "./Pages/Sign_In";
-import AuthLayout from "./components/Layout/AuthLayout";
 
 const route = createBrowserRouter(
   createRoutesFromElements(
@@ -37,20 +41,67 @@ const route = createBrowserRouter(
           errorElement={<Error />}
           loader={vansLoader}
         />
-        <Route path=":id" element={<VanDetails />} />
+        <Route path=":id" element={<VanDetails />} loader={VanDetailsLoader} />
       </Route>
 
-      <Route element={<AuthLayout />}>
-        <Route path="host" element={<HostLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="income" element={<Income />} />
-          <Route path="reviews" element={<Reviews />} />
-          <Route path="vans" element={<HostVans />} />
-          <Route path="vans/:id" element={<HostVansLayout />}>
-            <Route index element={<HostVanDitails />} />
-            <Route path="pricing" element={<HostVanPricing />} />
-            <Route path="photos" element={<HostVanPhotos />} />
-          </Route>
+      <Route path="host" element={<HostLayout />}>
+        <Route
+          index
+          element={<Dashboard />}
+          loader={async () => {
+            const isLogedin = true;
+            if (!isLogedin) {
+              console.log("from here");
+              throw redirect("/SignIn");
+            }
+            return null;
+          }}
+        />
+        <Route
+          path="income"
+          element={<Income />}
+          loader={async () => {
+            const isLogedin = true;
+            if (!isLogedin) {
+              throw redirect("/SignIn");
+            }
+            return null;
+          }}
+        />
+        <Route
+          path="reviews"
+          element={<Reviews />}
+          loader={async () => {
+            const isLogedin = true;
+            if (!isLogedin) {
+              throw redirect("/SignIn");
+            }
+            return null;
+          }}
+        />
+        <Route path="vans" element={<HostVans />} loader={HostVansLoader} />
+        <Route
+          path="vans/:id"
+          loader={async () => {
+            const isLogedin = true;
+            if (!isLogedin) {
+              throw redirect("/SignIn");
+            }
+            return null;
+          }}
+          element={<HostVansLayout />}
+        >
+          <Route index element={<HostVanDitails />} loader={vanDitailsLoader} />
+          <Route
+            path="pricing"
+            loader={vanPricingLoader}
+            element={<HostVanPricing />}
+          />
+          <Route
+            path="photos"
+            loader={vanPhotosLoader}
+            element={<HostVanPhotos />}
+          />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
