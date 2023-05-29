@@ -1,10 +1,9 @@
 import { Link, useLocation, useLoaderData } from "react-router-dom";
-import "../assets/Server";
-import { getVans } from "../assets/Api";
+import { getVans } from "../Api";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function loader({ params }) {
-  return getVans(params.id);
+  return getVans(params.id)
 }
 
 const VanDetails = () => {

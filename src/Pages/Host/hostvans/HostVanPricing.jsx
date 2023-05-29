@@ -1,20 +1,11 @@
-import { useLoaderData } from "react-router-dom";
-import { getVans } from "../../../assets/Api";
+import { useOutletContext } from "react-router-dom";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function loader({ params }) {
-  return getVans(params.id);
-}
-
-const HostVanPricing = () => {
-  const van = useLoaderData();
-
+export default function HostVanPricing() {
+  const { currentVan } = useOutletContext();
   return (
-    <div className=" font-medium text-xl">
-      ${van.price}
-      <span className="text-[25px] font-normal">/day</span>
-    </div>
+    <h3 className="host-van-price">
+      ${currentVan.price}
+      <span>/day</span>
+    </h3>
   );
-};
-
-export default HostVanPricing;
+}

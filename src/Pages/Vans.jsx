@@ -1,5 +1,5 @@
-import { getVans } from "../assets/Api";
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
+import { getVans } from "../Api";
 
 export function loader() {
   return getVans()
@@ -7,7 +7,7 @@ export function loader() {
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const vans = useLoaderData()
+  const vans = useLoaderData();
 
   const typeFilter = searchParams.get("type");
 

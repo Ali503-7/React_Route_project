@@ -1,106 +1,83 @@
 import {
-  RouterProvider,
-  createRoutesFromElements,
   createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
   Route,
-  redirect,
 } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
-import VanDetails, { loader as VanDetailsLoader } from "./Pages/VanDetails";
+import Login from "./Pages/Login";
 import Vans, { loader as vansLoader } from "./Pages/Vans";
-import Layout from "./components/Layout/Layout";
+import Error from "./Pages/Error"
+import VanDetail, { loader as vanDetailLoader } from "./Pages/VanDetails";
+import HostLayout from "./components/Layout/HostLayout";
+import Dashboard from "./Pages/Host/Dashboard";
 import Income from "./Pages/Host/Income";
 import Reviews from "./Pages/Host/Reviews";
-import Dashboard from "./Pages/Host/Dashboard";
 import HostVans, {
-  loader as HostVansLoader,
+  loader as hostVansLoader,
 } from "./Pages/Host/hostvans/HostVans";
-import HostLayout from "./components/Layout/HostLayout";
-import HostVanDitails, {
-  loader as vanDitailsLoader,
-} from "./Pages/Host/hostvans/HostVanDitails";
-import HostVansLayout from "./components/Layout/HostVansLayout";
-import HostVanPricing , {loader as vanPricingLoader} from "./Pages/Host/hostvans/HostVanPricing";
-import HostVanPhotos , {loader as vanPhotosLoader} from "./Pages/Host/hostvans/HostVanPhotos";
-import Error from "./Pages/Error";
+import HostVansLayout, {
+  loader as hostVanDetailLoader,
+} from "./components/Layout/HostVansLayout";
+import HostVanInfo from "./Pages/Host/hostvans/HostVanDitails";
+import HostVanPricing from "./Pages/Host/hostvans/HostVanPricing";
+import HostVanPhotos from "./Pages/Host/hostvans/HostVanPhotos";
 import NotFound from "./Pages/404";
-import Sign_In from "./Pages/Sign_In";
+import { requireAuth } from "./AuthRequired";
+import "./Server";
 
-const route = createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="SignIn" element={<Sign_In />} />
-
-      <Route path="vans">
-        <Route
-          index
-          element={<Vans />}
-          errorElement={<Error />}
-          loader={vansLoader}
-        />
-        <Route path=":id" element={<VanDetails />} loader={VanDetailsLoader} />
-      </Route>
+      <Route path="login" element={<Login />} />
+      <Route
+        path="vans"
+        element={<Vans />}
+        errorElement={<Error />}
+        loader={vansLoader}
+      />
+      <Route path="vans/:id" element={<VanDetail />} loader={vanDetailLoader} />
 
       <Route path="host" element={<HostLayout />}>
         <Route
           index
           element={<Dashboard />}
-          loader={async () => {
-            const isLogedin = true;
-            if (!isLogedin) {
-              console.log("from here");
-              throw redirect("/SignIn");
-            }
-            return null;
-          }}
+          loader={async () => await requireAuth()}
         />
         <Route
           path="income"
           element={<Income />}
-          loader={async () => {
-            const isLogedin = true;
-            if (!isLogedin) {
-              throw redirect("/SignIn");
-            }
-            return null;
-          }}
+          loader={async () => await requireAuth()}
         />
         <Route
           path="reviews"
           element={<Reviews />}
-          loader={async () => {
-            const isLogedin = true;
-            if (!isLogedin) {
-              throw redirect("/SignIn");
-            }
-            return null;
-          }}
+          loader={async () => await requireAuth()}
         />
-        <Route path="vans" element={<HostVans />} loader={HostVansLoader} />
+        <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
         <Route
           path="vans/:id"
-          loader={async () => {
-            const isLogedin = true;
-            if (!isLogedin) {
-              throw redirect("/SignIn");
-            }
-            return null;
-          }}
           element={<HostVansLayout />}
+          loader={hostVanDetailLoader}
         >
-          <Route index element={<HostVanDitails />} loader={vanDitailsLoader} />
+          <Route
+            index
+            element={<HostVanInfo />}
+            loader={async () => await requireAuth()}
+          />
           <Route
             path="pricing"
-            loader={vanPricingLoader}
             element={<HostVanPricing />}
+            loader={async () => await requireAuth()}
           />
           <Route
             path="photos"
-            loader={vanPhotosLoader}
             element={<HostVanPhotos />}
+            loader={async () => await requireAuth()}
           />
         </Route>
       </Route>
@@ -108,10 +85,9 @@ const route = createBrowserRouter(
     </Route>
   )
 );
-export default function App() {
-  return (
-    <div className="font-sans flex flex-col min-h-screen overflow-x-hidden bg-[#FFF7ED]">
-      <RouterProvider router={route} />
-    </div>
-  );
+
+function App() {
+  return <RouterProvider router={router} />;
 }
+
+export default App;

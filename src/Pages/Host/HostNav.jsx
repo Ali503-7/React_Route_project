@@ -5,7 +5,7 @@ const HostNav = () => {
       <ul className="flex flex-row gap-5">
         <li className="hover:underline text-[#161616]">
           <NavLink
-            to="/host"
+            to="host"
             end
             className={({ isActive }) =>
               isActive ? "underline font-bold" : null

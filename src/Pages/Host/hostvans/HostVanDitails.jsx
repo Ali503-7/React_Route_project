@@ -1,30 +1,22 @@
-import { useLoaderData } from "react-router-dom";
-import { getVans } from "../../../assets/Api";
+import { useOutletContext } from "react-router-dom";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function loader({ params }) {
-  return getVans(params.id);
-}
-
-const HostDitails = () => {
-  const van = useLoaderData();
+export default function HostVanInfo() {
+  const { currentVan } = useOutletContext();
 
   return (
-    <div className="flex flex-col gap-2">
-      <div>
-        <b>Name</b>:{van.name}
-      </div>
-      <div>
-        <b>Category</b>:{van.type}
-      </div>
-      <div>
-        <b>Description</b>:{van.description}
-      </div>
-      <div>
-        <b>Visibility</b>:Public
-      </div>
-    </div>
+    <section className="host-van-detail-info">
+      <h4>
+        Name: <span>{currentVan.name}</span>
+      </h4>
+      <h4>
+        Category: <span>{currentVan.type}</span>
+      </h4>
+      <h4>
+        Description: <span>{currentVan.description}</span>
+      </h4>
+      <h4>
+        Visibility: <span>Public</span>
+      </h4>
+    </section>
   );
-};
-
-export default HostDitails;
+}

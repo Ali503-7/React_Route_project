@@ -44,10 +44,8 @@ const nav = () => {
             </li>
             <li className="text-[20px] font-[600] text-header hover:text-black">
               <NavLink
-                to="/SignIn"
-                className={({ isActive }) =>
-                  isActive ? "text-black" : null
-                }
+                to="/login"
+                className={({ isActive }) => (isActive ? "text-black" : null)}
               >
                 <CgProfile />
               </NavLink>
