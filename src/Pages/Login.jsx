@@ -1,10 +1,16 @@
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 /* eslint-disable react/no-unescaped-entities */
+export const loader = ({ request }) => {
+  return new URL(request.url).searchParams.get("massage");
+};
 const Sign_In = () => {
   const [LoginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
   });
+
+  const logInFirst = useLoaderData()
 
   const FromHandel = (e) => {
     e.preventDefault();
@@ -20,6 +26,7 @@ const Sign_In = () => {
       <h1 className="font-bold text-xl text-Headers mb-5">
         Sign in to your account
       </h1>
+      {logInFirst && <h2>{ logInFirst }</h2>}
       <form onSubmit={(e) => FromHandel(e)} className="flex flex-col mb-3">
         <div className="border border-stone-800 rounded-md overflow-hidden mb-8">
           <input

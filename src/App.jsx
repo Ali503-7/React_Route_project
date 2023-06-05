@@ -7,7 +7,7 @@ import {
 import Layout from "./components/Layout/Layout";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
-import Login from "./Pages/Login";
+import Login , {loader as LoginLoader} from "./Pages/Login";
 import Vans, { loader as vansLoader } from "./Pages/Vans";
 import Error from "./Pages/Error"
 import VanDetail, { loader as vanDetailLoader } from "./Pages/VanDetails";
@@ -33,7 +33,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<Login />} loader={LoginLoader} />
       <Route
         path="vans"
         element={<Vans />}
@@ -87,7 +87,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <div className="font-sans flex flex-col min-h-screen overflow-x-hidden bg-[#FFF7ED]">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;

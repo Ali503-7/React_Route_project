@@ -1,15 +1,16 @@
 import { Outlet } from "react-router-dom";
-import Header from "../NavBar/Nav";
-import Footer from '../Footer/Footer'
-
-export default function Layout() {
+import Nav from "../NavBar/Nav";
+import Footer from "../Footer/Footer";
+const Layout = () => {
   return (
-    <div className="site-wrapper">
-      <Header />
-      <main>
+    <>
+      <Nav />
+      <main className="my-auto">
         <Outlet />
       </main>
-      <Footer/>
-    </div>
+      <Footer />
+    </>
   );
-}
+};
+
+export default Layout;

@@ -2,13 +2,12 @@ import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import { getVans } from "../Api";
 
 export function loader() {
-  return getVans()
+  return getVans();
 }
 
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const vans = useLoaderData();
-
   const typeFilter = searchParams.get("type");
 
   const HandelFilter = (text) => {
