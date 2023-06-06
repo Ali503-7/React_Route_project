@@ -8,8 +8,8 @@ export default function HostLayout() {
   };
 
   return (
-    <>
-      <nav className="host-nav">
+    <div className="container">
+      <nav className="flex gap-3">
         <NavLink
           to="."
           end
@@ -40,6 +40,6 @@ export default function HostLayout() {
         </NavLink>
       </nav>
       <Outlet />
-    </>
+    </div>
   );
 }

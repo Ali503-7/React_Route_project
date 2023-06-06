@@ -1,34 +1,43 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { getHostVans } from "../../../Api";
 import { requireAuth } from "../../../AuthRequired";
-
-
-export async function loader() {
-  await requireAuth()
-  return getHostVans()
+import { getHostVans } from "../../../Api";
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader({ request }) {
+  await requireAuth(request);
+  return getHostVans();
 }
 
-export default function HostVans() {
+const HostVans = () => {
   const vans = useLoaderData();
 
-  const hostVansEls = vans.map((van) => (
-    <Link to={van.id} key={van.id} className="host-van-link-wrapper">
-      <div className="host-van-single" key={van.id}>
-        <img src={van.imageUrl} alt={`Photo of ${van.name}`} />
-        <div className="host-van-info">
-          <h3>{van.name}</h3>
-          <p>${van.price}/day</p>
+  const vanList = () => {
+    return vans.map((van) => (
+      <Link to={van.id} key={van.id}>
+        <div className="bg-[#ffffff] p-5 w-full rounded-xl">
+          <div className="flex flex-row gap-5 items-center">
+            <div className="w-[67px] h-fit rounded-xl overflow-hidden">
+              <img src={van.imageUrl} className="w-fit h-fit" alt="" />
+            </div>
+            <div>
+              <h3 className="text-[20px] font-semibold text-Headers">
+                {van.name}
+              </h3>
+              <span className="text-[#4D4D4D] font-medium text-md">
+                ${van.price}/day
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-    </Link>
-  ));
+      </Link>
+    ));
+  };
 
   return (
-    <section>
-      <h1 className="host-vans-title">Your listed vans</h1>
-      <div className="host-vans-list">
-        <section>{hostVansEls}</section>
-      </div>
-    </section>
+    <div>
+      <h1 className="text-xl font-bold text-Headers my-10">Your listed vans</h1>
+      <div className="flex flex-col gap-5">{vanList()}</div>
+    </div>
   );
-}
+};
+
+export default HostVans;
