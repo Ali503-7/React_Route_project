@@ -44,7 +44,7 @@ const Sign_In = () => {
       ) }
 
       <h1 className="font-bold text-xl text-Headers mb-5">
-        Sign in to your account
+        {login ? "Sign out from" : "Sing in to"} your account
       </h1>
       {logInFirst && (
         <h2 className="text-red-600 font-bold text-lg mb-3">{logInFirst}</h2>
