@@ -34,6 +34,10 @@ const Sign_In = () => {
 
   return (
     <div className="container flex flex-col items-center w-full">
+      <div className=" absolute left-50 bottom-28">
+        <div>Email: b@b.com</div>
+        <div>Password: p123</div>
+      </div>
       <h1 className="font-bold text-xl text-Headers mb-5">
         Sign in to your account
       </h1>

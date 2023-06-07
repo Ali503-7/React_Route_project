@@ -42,7 +42,7 @@ const nav = () => {
                 Vans
               </NavLink>
             </li>
-            <li className="text-[20px] font-[600] text-header hover:text-black">
+            <li className="text-[20px] font-[600] text-header hover:text-black before:contents">
               <NavLink
                 to="/login"
                 className={({ isActive }) => (isActive ? "text-black" : null)}
