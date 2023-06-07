@@ -9,7 +9,7 @@ export default function HostLayout() {
 
   return (
     <div className="container">
-      <nav className="flex gap-3">
+      <nav className="flex gap-3 mb-5">
         <NavLink
           to="."
           end
@@ -39,7 +39,7 @@ export default function HostLayout() {
           Reviews
         </NavLink>
       </nav>
-      <Outlet />
+        <Outlet />
     </div>
   );
 }

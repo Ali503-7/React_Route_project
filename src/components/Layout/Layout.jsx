@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <>
       <Nav />
-      <main className="my-auto">
+      <main className="mb-auto">
         <Outlet />
       </main>
       <Footer />
